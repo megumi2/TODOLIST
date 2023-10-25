@@ -3,14 +3,13 @@ body {
 }
 
 .nav-bar{
-    background-color: rgb(127, 195, 255);
+    background-color: rgb(127, 195, 255);  
+    color: white;  
 }
-
-
 
 .arrow_box{
     position:relative;
-    width:500px;
+    width:600px;
     height:60px;
     background:rgb(127, 195, 255);
     padding:10px;
@@ -23,6 +22,9 @@ body {
     -moz-border-radius:10px;
     display: inline-block; margin-right: 10px;
 }
+
+
+
 .arrow_box:after{
     border: solid transparent;
     content:'';

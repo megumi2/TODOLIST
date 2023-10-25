@@ -38,7 +38,7 @@ let Complete_Task_Serif = [
                     "タスク完了テスト4",
                     "タスク完了テスト5",
 ]
-//0~4のランダムな数字を作成
+
 
 //現在の時間を取得
 const hour = new Date().getHours();
@@ -52,25 +52,24 @@ function setCharactorSerif() {
 
     if(6<=hour && hour<12){
     document.getElementById("charactor_serif").textContent = Charactor_Serif_Morning[rand_num];
-//12時~17時59分　昼だったら「朝のセリフリスト」からランダムにセリフを表示させる
+//12時~17時59分　昼だったら「昼のセリフリスト」からランダムにセリフを表示させる
 }else if(12<=hour && hour<18){
     document.getElementById("charactor_serif").textContent = Charactor_Serif_Afternoon[rand_num];
-//18時~5時59分　夜だったら「朝のセリフリスト」からランダムにセリフを表示させる
+//18時~5時59分　夜だったら「夜のセリフリスト」からランダムにセリフを表示させる
 }else{
     document.getElementById("charactor_serif").textContent = Charactor_Serif_Evening[rand_num];
 }
 
-//currentTimeout = setTimeout(() => setCharactorSerif(), 5000);
 }    
 
 //タスク完了をクリックしたらキャラクターの吹き出しにセリフを表示、時間経過で元に戻す
 function TaskCompleteSerif(){
     let rand_num = Math.floor(Math.random()*4);
     document.getElementById("charactor_serif").textContent = Complete_Task_Serif[rand_num];
-    setTimeout(() => {setCharactorSerif()}, 5000);
+    setTimeout(() => {setCharactorSerif()}, 100000);
 }
 
-//タスク追加をクリックしたらキャラクターの吹き出しにセリフを表示、時間経過で元に戻す
+//タスク追加iをクリックしたらキャラクターの吹き出しにセリフを表示、時間経過で元に戻す
 function TaskAddSerif(){
     let rand_num = Math.floor(Math.random()*4);
     document.getElementById("charactor_serif").textContent = Add_Task_Serif[rand_num];

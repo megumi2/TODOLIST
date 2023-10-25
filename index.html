@@ -8,15 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TodoApp</title>
 </head>
-<?php 
-$db = new mysqli('localhost:8889', 'root', 'root', 'mydb');
-if ($db->connect_error) {
-    echo "データベース接続エラー: " . $db->connect_error;
-}?>
+
 <body>
 <!-- ナビゲーションバー -->
 <div class="nav-bar navbar-expand-lg p-3">
-        <h2 style="color:white;">TodoApp</h2>
+        <h2>TodoApp</h2>
 </div>
 
 <div class="container center-block"  style="background-color: white;">
@@ -51,7 +47,7 @@ if ($db->connect_error) {
     </div>
         <!-- タスクの追加ボタン -->
         <div style="display: inline-block; margin-right: 10px;">
-        <input type="submit" class="btn btn-primary"id="task_add" value="タスクの追加" onclick="TaskAddSerif()">
+        <input type="submit" class="btn btn-primary"id="task_add" value="タスクの追加">
     </div>
 
     </div>
@@ -59,14 +55,8 @@ if ($db->connect_error) {
 
 
     <!-- タスク一覧のテーブル -->
-    <?php 
-    $query='select task_name, id, priority, start_date, end_date, complete from todo_task;';
-    $result= $db->query($query);
-    if (!$result) {
-        die("クエリエラー: " . $db->error);
-    }
-    ?>
-    <table class="task-table table">
+
+    <table class="task-table table" id="task-table">
         <thead>
             <tr>
                 <th scope="col">タスク</th>
@@ -77,16 +67,7 @@ if ($db->connect_error) {
             </tr>
         </thead>
         <tbody>
-            <?php while($row = $result->fetch_assoc()){
-                echo '<tr>';
-                echo '<td>'.$row['task_name'].'</td>';
-                echo '<td>'.$row['priority'].'</td>';
-                echo '<td>'.$row['start_date'].'</td>';
-                echo '<td>'.$row['end_date'].'</td>';
-                echo '<td><input class="form-check-input" type="checkbox" value="'.$row['id'].'"name = "check_box" id="flexCheckChecked_'.$row['id'].'"></td>';
-                echo '</tr>';
-            }
-            ?>
+
         </tbody>
     </table>
 </form>
@@ -108,12 +89,45 @@ $.ajaxSetup({
 
 
 //タスク追加非同期通信
-$('#form_list').on('submit', function(event){
-   // フォームのデータを取得
+
+$('#task_add').on('click', function(event){   
+    //現在の日程を取得
+    const today =  new Date()
+
+    //タスクの開始日、終了日が過去かどうかを比較するための変数
+    const start_date = $("#taskStart").val();
+    const end_date = $("#taskEnd").val();
+
+    const input_start_date = new Date(start_date);
+    const input_end_date = new Date(end_date);
+    //タスクが未入力の場合
+    if($("#taskName").val() ===""){
+        //処理を中断
+        document.getElementById("charactor_serif").textContent = "おーい。タスク名書き忘れているよ。ちゃんと書いてあげてー。";
+        event.preventDefault(); // フォームの送信を中止
+        return;// ここで return して処理を中断
+    //タスクの開始日、終了日が未入力の場合
+    }else if($("#taskStart").val() ==="" || $("#taskEnd").val() ===""){
+        document.getElementById("charactor_serif").textContent = "開始日もしくは終了日を書いてないよ。大事なことだから書いてあげて。";
+        event.preventDefault(); // フォームの送信を中止
+        return;// ここで return して処理を中断
+    //タスクの開始日、終了日が今日よりも過去の場合フォームの送信を中止
+    }else if(today > input_start_date || today > input_end_date){
+        document.getElementById("charactor_serif").textContent = "開始日もしくは終了日が過去になってるよ。時間旅行にでも行ってきた？";
+        event.preventDefault(); // フォームの送信を中止
+        return;// ここで return して処理を中断
+    }else if($("#taskStart").val() > $("#taskEnd").val()){
+        document.getElementById("charactor_serif").textContent = "終了日が開始日よりも早くなってるよ。時間の流れが違う世界にいたの？";
+        event.preventDefault(); // フォームの送信を中止
+        return;// ここで return して処理を中断
+    }else{
+    // フォームのデータを取得
     var taskName = $("#taskName").val();
     var taskPriority = $("#taskPriority").val();
     var taskStart = $("#taskStart").val();
     var taskEnd = $("#taskEnd").val();
+    
+    }
 
     $.ajax({
         type:"POST",
@@ -126,11 +140,18 @@ $('#form_list').on('submit', function(event){
         },
         success: function(response){
             console.log("データ格納しました");
+            // タスクテーブルの内容を更新
+            if(loadTaskData()){
+                TaskAddSerif();
+            }
+
         },
         error: function(xhr, status, error){
             console.log("エラー："+error);
         }
     });
+    //画面遷移が終わった瞬間にセリフを変更
+    
 
 });
 
@@ -144,7 +165,14 @@ $('#task_delete').on('click', function(){
         if(chk[i].checked){
             selected_rows.push(chk[i].value);
         }
+
     }
+    if(selected_rows.length == 0){
+        //処理を中断  
+        document.getElementById("charactor_serif").textContent = "タスクを選択し忘れているよ。もう１回選択してみて。";
+        event.preventDefault();
+        return;// ここで return して処理を中断
+        }
     $.ajax({
         type: "POST",
         url: "delete_task.php",
@@ -152,15 +180,35 @@ $('#task_delete').on('click', function(){
         success: function(response) {
             // 削除が成功した場合の処理
             console.log("タスクを削除しました");
-            // ここで必要に応じてページをリロードまたはタスク一覧を更新する処理を追加できます
+            // タスクテーブルの内容を更新
+            loadTaskData();
+            //セリフを変更
+            TaskCompleteSerif();
+            
+            
         },
         error: function(xhr, status, error) {
             // エラーハンドリング
             console.log("エラー：" + error);
         }
+        
     
     });
 });
 
+//追加、削除したデータを画面に反映
+function loadTaskData(){
+    $.ajax({
+        type:"POST",
+        url:"load_task.php",
+        success: function(response){
+            $("#task-table tbody").html(response); // タスクテーブルを更新;
+        },
+        error: function(xhr, status, error){
+            console.log("エラー："+error);
+        }
+    });
+}
 
+loadTaskData();
 </script>

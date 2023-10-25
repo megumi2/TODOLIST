@@ -16,8 +16,9 @@ foreach($Task_ids as $taskid){
          // エラーハンドリング
         echo "削除エラー: " . $stmt->error;
     }
+}   
     $stmt->reset();
     $stmt->close();
-}
+
 
 ?>

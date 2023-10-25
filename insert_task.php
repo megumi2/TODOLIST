@@ -10,21 +10,16 @@ if ($db->connect_error) {
 if(isset($_POST['task_name'], $_POST['task_priority'], $_POST['task_start'], $_POST['task_end'])){
     //クエリを作成しデータベースに挿入
 
-    $taskName = $_POST["task_name"]; // フォームから直接値を取得
-    $taskPriority = $_POST["task_priority"];
-    $taskStart = $_POST["task_start"];
-    $taskEnd = $_POST["task_end"];
+    $taskName = htmlspecialchars($_POST["task_name"], ENT_QUOTES); // フォームから直接値を取得
+    $taskPriority = htmlspecialchars($_POST["task_priority"], ENT_QUOTES);
+    $taskStart = htmlspecialchars($_POST["task_start"], ENT_QUOTES);
+    $taskEnd = htmlspecialchars($_POST["task_end"], ENT_QUOTES);
 
     $stmt = $db->prepare("insert into todo_task (task_name, priority, start_date, end_date) values (?,?,?,?)");
     $stmt->bind_param("ssss", $taskName, $taskPriority, $taskStart, $taskEnd);
-    //$stmt->execute();
+    $stmt->execute();
 
-    if ($stmt->execute()) {
-        // データが正常に挿入されたらJavaScriptの関数を呼び出す
-        echo '<script>';
-        echo 'TaskAddSerif();';
-        echo '</script>';
-    }
+
 
     $stmt->close();
     $db->close();
