@@ -100,6 +100,10 @@ $('#task_add').on('click', function(event){
     const input_start_date = new Date($("#taskStart").val());
     const input_end_date = new Date($("#taskEnd").val());
 
+    //タスクの開始日、終了日と今日の日程を比較する際にバグが出ないための調整
+    input_start_date.setHours(23, 59);
+    input_end_date.setHours(23, 59); 
+    
     //タスクが未入力の場合
     if($("#taskName").val() ===""){
         //処理を中断
@@ -112,7 +116,7 @@ $('#task_add').on('click', function(event){
         event.preventDefault(); // フォームの送信を中止
         return;// ここで return して処理を中断
     //タスクの開始日、終了日が今日よりも過去の場合フォームの送信を中止
-    }else if(today > input_start_date || today > input_end_date){
+    }else if(today.getTime() > input_start_date.getTime() || today.getTime() > input_end_date.getTime()){
         document.getElementById("charactor_serif").textContent = "開始日もしくは終了日が過去になってるよ。時間旅行にでも行ってきた？";
         event.preventDefault(); // フォームの送信を中止
         return;// ここで return して処理を中断
