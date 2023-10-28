@@ -2,10 +2,7 @@
 
 
 //DBに接続
-$db = new mysqli('localhost:8889', 'root', 'root', 'mydb');
-if ($db->connect_error) {
-    echo "データベース接続エラー: " . $db->connect_error;
-}
+require('data_connect.php');
 //DBに追加
 if(isset($_POST['task_name'], $_POST['task_priority'], $_POST['task_start'], $_POST['task_end'])){
     //クエリを作成しデータベースに挿入

@@ -1,9 +1,6 @@
 <?php 
     //DBに接続
-    $db = new mysqli('localhost:8889', 'root', 'root', 'mydb');
-    if ($db->connect_error) {
-    echo "データベース接続エラー: " . $db->connect_error;
-}
+    require('data_connect.php');
 
 
     $query='select task_name, id, priority, start_date, end_date, complete from todo_task;';

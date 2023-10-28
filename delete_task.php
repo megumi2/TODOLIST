@@ -1,8 +1,6 @@
 <?php
-$db = new mysqli('localhost:8889', 'root', 'root', 'mydb');
-if ($db->connect_error) {
-    echo "データベース接続エラー: " . $db->connect_error;
-}
+require('data_connect.php');
+
 $Task_ids = $_POST['taskIds'];
 
 $query ="delete from todo_task where todo_task.id = ?";
