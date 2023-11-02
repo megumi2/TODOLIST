@@ -78,6 +78,9 @@ function TaskAddSerif(){
     setTimeout(() => {setCharactorSerif()}, 100000);
 }
 
+function NotionSerif(text){
+    document.getElementById("charactor_serif").textContent = text;
+}
 
 //キャラクターのセリフを初期化
 setCharactorSerif();

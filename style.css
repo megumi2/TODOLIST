@@ -43,13 +43,29 @@ body {
     top:56%;
 }
 
+.btn-edit{
+    background-color:rgb(127, 195, 255);
+    color:white;
+    padding-right: 10px;
+    position: relative;
+    right: 10px;
+}
+
+.btn-edit:hover{
+    background-color:white;
+    border: 1px solid rgb(127, 195, 255);
+    color:rgb(127, 195, 255);
+
+}
+
 .delete_button{
     margin: 0 auto;
     text-align: center;
+
 }
 
 /*ボタンの設定*/
-#task_add:hover{
+.btn-primary:hover{
     background-color:white; 
     color: #007bff;
 }
@@ -57,4 +73,19 @@ body {
 #task_delete:hover{
     background-color:white; 
     color: #dc3545;
+}
+
+/*タスク編集ページ*/
+.title {
+    color: rgb(127, 195, 255);
+    text-align: center;
+}
+
+#edit_button {
+    text-align: center;
+}
+
+#Top_Link {
+    text-decoration: none;
+    color: white;
 }

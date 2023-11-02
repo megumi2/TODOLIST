@@ -63,6 +63,7 @@
                 <th scope="col">優先度</th>
                 <th scope="col">開始日</th>
                 <th scope="col">終了日</th>
+                <th scope="col">編集</th>
                 <th scope="col">完了</th>
             </tr>
         </thead>
@@ -107,22 +108,22 @@ $('#task_add').on('click', function(event){
     //タスクが未入力の場合
     if($("#taskName").val() ===""){
         //処理を中断
-        document.getElementById("charactor_serif").textContent = "おーい。タスク名書き忘れているよ。ちゃんと書いてあげてー。";
+        NotionSerif("おーい。タスク名書き忘れているよ。ちゃんと書いてあげてー。");
         event.preventDefault(); // フォームの送信を中止
         return;// ここで return して処理を中断
     //タスクの開始日、終了日が未入力の場合
     }else if($("#taskStart").val() ==="" || $("#taskEnd").val() ===""){
-        document.getElementById("charactor_serif").textContent = "開始日もしくは終了日を書いてないよ。大事なことだから書いてあげて。";
+        NotionSerif("開始日もしくは終了日を書いてないよ。大事なことだから書いてあげて。");
         event.preventDefault(); // フォームの送信を中止
         return;// ここで return して処理を中断
     //タスクの開始日、終了日が今日よりも過去の場合フォームの送信を中止
     }else if(today.getTime() > input_start_date.getTime() || today.getTime() > input_end_date.getTime()){
-        document.getElementById("charactor_serif").textContent = "開始日もしくは終了日が過去になってるよ。時間旅行にでも行ってきた？";
+        NotionSerif("開始日もしくは終了日が過去になってるよ。時間旅行にでも行ってきた？");
         event.preventDefault(); // フォームの送信を中止
         return;// ここで return して処理を中断
     }else if($("#taskStart").val() > $("#taskEnd").val()){
         event.preventDefault(); // フォームの送信を中止
-        document.getElementById("charactor_serif").textContent = "終了日が開始日よりも早くなってるよ。時間の流れが違う世界にいたの？";
+        NotionSerif("終了日が開始日よりも早くなってるよ。時間の流れが違う世界にいたの？");
         return;// ここで return して処理を中断
     }else{
     // フォームのデータを取得
@@ -158,6 +159,14 @@ $('#task_add').on('click', function(event){
     
 
 });
+
+//タスク編集ページ遷移
+$(document).on('click', ".btn-edit", function(){
+    var task_id = $(this).closest('tr').find('td').attr('id');;
+    // タスク編集ページへの遷移
+    window.location.href = 'task_edit.php?id=' + task_id; // 遷移先の URL に task_id を渡します
+})
+
 
 //タスク削除非同期通信
 
