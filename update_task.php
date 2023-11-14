@@ -9,7 +9,7 @@ if(isset($_POST['task_name'], $_POST['task_priority'], $_POST['task_start'], $_P
     $taskPriority = htmlspecialchars($_POST["task_priority"], ENT_QUOTES);
     $taskStart = htmlspecialchars($_POST["task_start"], ENT_QUOTES);
     $taskEnd = htmlspecialchars($_POST["task_end"], ENT_QUOTES);
-
+    //SQL文を作成、実行
     $stmt = $db->prepare("update todo_task set task_name = ?, priority = ?, start_date = ?, end_date = ? where id = ?");
     $stmt->bind_param("ssssi", $taskName, $taskPriority, $taskStart, $taskEnd, $taskId);
     $stmt->execute();

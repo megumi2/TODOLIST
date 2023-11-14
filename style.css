@@ -7,6 +7,28 @@ body {
     color: white;  
 }
 
+.nav-bar-list{
+    display: flex;
+    font-size: large;
+    justify-content: space-between;
+    list-style: none;
+
+}
+.nav-bar-list li{
+    padding-top: 16px;
+    padding-right: 16px;
+    
+}
+
+.nav-bar-list #list_logout a{
+    text-decoration: none;
+    color:white;
+}
+
+.nav-bar-list #list_logout a:hover{
+    color:rgb(22, 22, 71);
+}
+
 .arrow_box{
     position:relative;
     width:600px;

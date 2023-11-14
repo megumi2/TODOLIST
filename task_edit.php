@@ -120,7 +120,7 @@ NotionSerif("ここは編集画面。好きに編集していってくれ。")
     var taskPriority = $("#taskPriority").val();
     var taskStart = $("#taskStart").val();
     var taskEnd = $("#taskEnd").val();
-    console.log(taskId)
+
     }
 
     

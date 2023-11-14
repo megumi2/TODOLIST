@@ -8,11 +8,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TodoApp</title>
 </head>
-
+<?php
+session_start(); // セッションを開始
+?>
 <body>
 <!-- ナビゲーションバー -->
 <div class="nav-bar navbar-expand-lg p-3">
         <h2>TodoApp</h2>
+
+        <ul class="nav-bar-list">
+            <li class="list_1">ようこそ<?php echo $_SESSION["user"]?>さん</li>
+            <li id="list_logout"><a href="login/entry.php">ログアウト</a></li>
+        </ul>
 </div>
 
 <div class="container center-block"  style="background-color: white;">
@@ -75,7 +82,7 @@
 
     <!-- タスク削除ボタン -->
     <div class="delete_button">
-    <button type="button" class="btn btn-danger" id="task_delete">タスク完了</button>
+    <button type="button" class="btn btn-danger mx-auto" id="task_delete">タスク完了</button>
     </div>
 </div>
 
@@ -198,7 +205,7 @@ $('#task_delete').on('click', function(){
             //セリフを変更
             TaskCompleteSerif();
             
-            
+
         },
         error: function(xhr, status, error) {
             // エラーハンドリング
