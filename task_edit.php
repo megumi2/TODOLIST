@@ -10,8 +10,8 @@
     </head>
     <body>
     <!-- ナビゲーションバー -->
-    <div class="nav-bar navbar-expand-lg p-3">
-            <a id ="Top_Link" href ="index.html"><h2>TodoApp</h2></a>
+    <div class="nav-bar navbar-expand-lg p-3 container center-block">
+            <a id ="Top_Link" href ="index.php"><h2>TodoApp</h2></a>
     </div>
     <div class="container center-block col-6"  style="background-color: white;">
         <!-- 画像とセリフ -->
@@ -138,7 +138,7 @@ NotionSerif("ここは編集画面。好きに編集していってくれ。")
         success: function(response){
             //ホーム画面に遷移
 
-            window.location.href = "index.html";
+            window.location.href = "index.php";
         },
         error:function(jqXHR, textStatus, errorThrown) {
         // エラーハンドリング

@@ -1,3 +1,10 @@
+<?php
+session_start();
+//ログイン済かどうかを確認する
+if(isset($_SESSION['user'])){
+    header('Location:../index.php');
+    exit;
+}?>
 <!DOCTYPE html>
 <html lang="ja">
     <head>
@@ -10,8 +17,8 @@
     </head>
     <body>
     <!-- ナビゲーションバー -->
-    <div class="nav-bar navbar-expand-lg p-3">
-            <a id ="Top_Link" href ="index.html"><h2>TodoApp</h2></a>
+    <div class="nav-bar navbar-expand-lg p-3 container center-block">
+            <a id ="Top_Link" href ="../index.php"><h2>TodoApp</h2></a>
     </div>
     <div class="container center-block col-8" style="background-color: white;">
         <!-- 画像とセリフ -->
@@ -32,7 +39,11 @@
         </div>
         
         <button size="80" class="btn btn-primary mx-auto" type ="submit" style ="display: block;" id="login_button">ログイン</button>
-    </form>   
+    </form>
+    <div class="resist container center-block">
+    <a href="resistration.php" id="resistration_link"><h5>会員登録はこちらから</h5></a>
+    </div>
+    
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>

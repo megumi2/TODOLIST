@@ -10,8 +10,8 @@
     </head>
     <body>
     <!-- ナビゲーションバー -->
-    <div class="nav-bar navbar-expand-lg p-3">
-            <a id ="Top_Link" href ="index.html"><h2>TodoApp</h2></a>
+    <div class="nav-bar navbar-expand-lg p-3 container center-block">
+            <a id ="Top_Link" href ="index.php"><h2>TodoApp</h2></a>
     </div>
     <div class="container center-block col-6"  style="background-color: white;">
         <!-- 画像とセリフ -->
@@ -207,7 +207,7 @@ $('#resistration_button').on('click', function(event){
                 
             }else{
                 //ログイン画面に遷移
-            window.location.href = "entry.html";
+            window.location.href = "entry.php";
             };
     
         },

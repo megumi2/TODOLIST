@@ -1,10 +1,15 @@
 <?php 
+    session_start();
     //DBに接続
     require('data_connect.php');
 
+    $userId = $_SESSION["ID"];
 
-    $query='select task_name, id, priority, start_date, end_date, complete from todo_task;';
-    $result= $db->query($query);
+    $stmt = $db->prepare('select task_name, id, priority, start_date, end_date, complete from todo_task where user_id = ?;');
+    
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
     
     if (!$result) {
         die("クエリエラー: " . $db->error);
@@ -20,5 +25,6 @@
         echo '<td><input class="form-check-input" type="checkbox" value="'.$row['id'].'"name = "check_box" id="flexCheckChecked_'.$row['id'].'"></td>';
         echo '</tr>';
     }
+    $stmt->close();
     $db->close();
     ?>

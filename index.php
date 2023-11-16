@@ -10,15 +10,21 @@
 </head>
 <?php
 session_start(); // セッションを開始
+
+//ログイン済かどうかを確認する
+if(!isset($_SESSION["user"])){
+    header('Location:login/entry.php');
+    exit;
+}
 ?>
 <body>
 <!-- ナビゲーションバー -->
-<div class="nav-bar navbar-expand-lg p-3">
+<div class="nav-bar navbar-expand-lg p-3 container center-block">
         <h2>TodoApp</h2>
 
         <ul class="nav-bar-list">
             <li class="list_1">ようこそ<?php echo $_SESSION["user"]?>さん</li>
-            <li id="list_logout"><a href="login/entry.php">ログアウト</a></li>
+            <li id="list_logout"><a href="login/logout.php">ログアウト</a></li>
         </ul>
 </div>
 
@@ -139,6 +145,7 @@ $('#task_add').on('click', function(event){
     var taskPriority = $("#taskPriority").val();
     var taskStart = $("#taskStart").val();
     var taskEnd = $("#taskEnd").val();
+    var user_id = <?php echo $_SESSION["ID"]; ?>;
     
     }
 
@@ -149,7 +156,8 @@ $('#task_add').on('click', function(event){
             task_name: taskName,
             task_priority: taskPriority,
             task_start: taskStart,
-            task_end: taskEnd
+            task_end: taskEnd,
+            user_id: user_id
         },
         success: function(response){
             //セリフを変更
@@ -218,6 +226,7 @@ $('#task_delete').on('click', function(){
 
 //追加、削除したデータを画面に反映
 function loadTaskData(){
+    var user_id = <?php echo $_SESSION["ID"]; ?>;
     $.ajax({
         type:"POST",
         url:"load_task.php",

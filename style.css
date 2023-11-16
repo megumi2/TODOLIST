@@ -20,9 +20,23 @@ body {
     
 }
 
-.nav-bar-list #list_logout a{
+.nav-bar-list #list_logout a {
     text-decoration: none;
     color:white;
+}
+
+.resist{
+    margin-top: 30px;
+    padding-bottom: 30px;
+}
+#resistration_link{
+    margin-top: 20px;
+    text-align: center;
+    text-decoration: none;
+    color: rgb(127, 195, 255);  
+}
+#resistration_link:hover{
+    color:rgb(52, 52, 253);
 }
 
 .nav-bar-list #list_logout a:hover{
@@ -110,4 +124,10 @@ body {
 #Top_Link {
     text-decoration: none;
     color: white;
+}
+
+#logout_title{
+    color: rgb(127, 195, 255);
+    text-align: center;
+    padding-top: 30px;
 }
