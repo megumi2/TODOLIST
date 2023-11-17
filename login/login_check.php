@@ -15,7 +15,7 @@ if(isset($_POST['MailAddress'], $_POST['PassWord'])){
     $member = $result->fetch_assoc();
     if ($member === null) {
         // ユーザーが見つからなかった場合の処理
-        echo json_encode(array("success" => false, "message" => "ユーザーが見つかりませんでした。"));
+        echo json_encode(array("success" => false, "message" => "メールアドレスかパスワードが間違っているようだね。"));
         exit;
     }
 
@@ -28,9 +28,6 @@ if(isset($_POST['MailAddress'], $_POST['PassWord'])){
         $db->close();
 
         echo json_encode(array("success" => true));
-    }else{
-        echo json_encode(array("success" => false, "message" => "メールアドレスかパスワードが間違っているようだね。"));
-        exit;
     };
 
     

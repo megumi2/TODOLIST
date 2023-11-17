@@ -17,10 +17,10 @@ if(isset($_SESSION['user'])){
     </head>
     <body>
     <!-- ナビゲーションバー -->
-    <div class="nav-bar navbar-expand-lg p-3 container center-block">
+    <div class="nav-bar navbar-expand-lg p-3 container center-block  col-6">
             <a id ="Top_Link" href ="../index.php"><h2>TodoApp</h2></a>
     </div>
-    <div class="container center-block col-8" style="background-color: white;">
+    <div class="container center-block  col-6" style="background-color: white;">
         <!-- 画像とセリフ -->
         <div class="container">
         <img src="../img/キャラクター.png" id="image" alt=""width="150px" height="150px">

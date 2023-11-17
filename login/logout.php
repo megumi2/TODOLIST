@@ -21,7 +21,7 @@
     <div class="container center-block col-8" style="background-color: white;">
     <h3 id="logout_title">ログアウトしました</h3>
         <!-- 画像とセリフ -->
-        <div class="container">
+        <div class="container" style="padding-left:200px;">
         <img src="../img/キャラクター.png" id="image" alt=""width="150px" height="150px">
         <div class='arrow_box'><p id='charactor_serif'>また来てね。ぼくはいつでも待っているよ。</p></div>
     </div>
